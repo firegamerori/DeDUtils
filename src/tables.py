@@ -15,6 +15,10 @@ class Item:
         
         pass
 
+    def __str__(self):
+        return "name: {0} \nprob: {1}\ndesc: {2}".format(self.name, self.prob, self.desc)
+        pass
+
     def to_json(self):
         return {
             "name": self.name,
@@ -29,8 +33,13 @@ class Item:
 
 class Table:
     
+    name = ""
     item_list = []
     prob_total = 0
+
+    def __init__(self, name):
+        self.name = name
+        pass
 
     def add_item(self, prob: int, name: str, desc: str):
         self.prob_total += prob
