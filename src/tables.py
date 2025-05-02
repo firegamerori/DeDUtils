@@ -47,8 +47,16 @@ class Table:
         pass
 
     @staticmethod
-    def create_from_arquive(arquive_path: str):
-        #TODO implement       
+    def create_from_arquive(name: str):
+        arq = open("{0}/{1}.json".format(PATH_TO_ARQ, name), "r")
+        js = json.loads(arq.read())
+
+        table = Table(js["name"])
+
+        for item in js["items"].values():
+            table.add_item(item["prob"], item["name"], item["desc"])
+        
+        return table
         pass
 
     def roll(self):
@@ -67,17 +75,22 @@ class Table:
 
     def save_in_arquive(self, name: str):
         arq = open("{0}/{1}.json".format(PATH_TO_ARQ, name), "w")
-        jsn = {
-
+        items = {
+        
         }
 
         v = 0
 
         for i in self.item_list:
             i: Item = i
-            jsn[str(v)] = i.to_json()
+            items[str(v)] = i.to_json()
             v += 1
             pass
+    
+        jsn = {
+            "name": name,
+            "items": items
+        }
 
         j = json.dumps(jsn)
         arq.write(j)

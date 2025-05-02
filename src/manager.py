@@ -56,8 +56,6 @@ class Manager:
             print("ID: {0} {1} ".format(id, i))
             id += 1
         
-
-        
         id = ask_int("id: ")
         os.system('cls||clear')
         name = self.command_list.get_command_name(id+start)
