@@ -10,11 +10,27 @@ def roll_question(self):
         print("ID: {0} {1}".format(id, i.name))
         id += 1
     
-    id = input()
+    id = ask_int("Id:")
     print(tables[int(id)].roll())
     input("enter to continue....")
     os.system('cls||clear')
     pass
+
+def ask_int(question):
+        try:
+            return int(input(question))
+        except ValueError:
+            print("Invalid input")
+            return ask_int(question)
+            pass
+
+def ask(question, commands : list[str]):
+        a = input(question)
+        if a in commands:
+            return a
+        
+        print("Error: invalid response")
+        return ask(question, commands)
 
 class Manager:
     
@@ -31,22 +47,6 @@ class Manager:
         while(True):
             self.process()
     
-    def ask(self, question, commands : list[str]):
-        a = input(question)
-        if a in commands:
-            return a
-        
-        print("Error: invalid response")
-        self.ask(question, commands)
-    
-    def ask_int(self, question):
-        try:
-            return int(input(question))
-        except ValueError:
-            print("Invalid input")
-            return self.ask_int(question)
-            pass
-    
     def ask_func(self, start : int = 0):
         print("Select your task")
         id = 0
@@ -56,7 +56,9 @@ class Manager:
             print("ID: {0} {1} ".format(id, i))
             id += 1
         
-        id = self.ask_int("id: ")
+
+        
+        id = ask_int("id: ")
         os.system('cls||clear')
         name = self.command_list.get_command_name(id+start)
         func = self.command_list.get(name)
