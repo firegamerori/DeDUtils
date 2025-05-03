@@ -3,6 +3,7 @@ import random
 
 PATH_TO_ARQ = "ress/tables"
 
+
 class Item:
     prob = 0
     name = ""
@@ -12,29 +13,26 @@ class Item:
         self.prob = prob
         self.name = name
         self.desc = desc
-        
+
         pass
 
     def __str__(self):
-        return "name: {0} \nprob: {1}\ndesc: {2}".format(self.name, self.prob, self.desc)
+        return "name: {0} \nprob: {1}\ndesc: {2}".format(
+            self.name, self.prob, self.desc
+        )
         pass
 
     def to_json(self):
-        return {
-            "name": self.name,
-            "prob": self.prob,
-            "desc": self.desc
-        }
+        return {"name": self.name, "prob": self.prob, "desc": self.desc}
         pass
-    
+
     pass
 
 
-
 class Table:
-    
+
     name = ""
-    item_list = []
+    item_list : list[Item] = []
     prob_total = 0
 
     def __init__(self, name):
@@ -47,7 +45,7 @@ class Table:
         pass
 
     @staticmethod
-    def create_from_arquive(name: str):
+    def create_from_archive(name: str):
         arq = open("{0}/{1}.json".format(PATH_TO_ARQ, name), "r")
         js = json.loads(arq.read())
 
@@ -55,46 +53,38 @@ class Table:
 
         for item in js["items"].values():
             table.add_item(item["prob"], item["name"], item["desc"])
-        
+
         return table
         pass
 
     def roll(self):
-        #roll from the dice
+        # roll from the dice
         r = random.randint(1, self.prob_total)
         actual = 1
 
         for item in self.item_list:
             item : Item = item
-            if r >= actual and r <= item.prob+actual:
+            if r >= actual and r <= item.prob + actual:
                 return item
             actual += item.prob
 
-
         pass
 
-    def save_in_arquive(self, name: str):
+    def save_in_archive(self, name: str):
         arq = open("{0}/{1}.json".format(PATH_TO_ARQ, name), "w")
-        items = {
-        
-        }
+        items = {}
 
         v = 0
 
         for i in self.item_list:
-            i: Item = i
             items[str(v)] = i.to_json()
             v += 1
             pass
-    
-        jsn = {
-            "name": name,
-            "items": items
-        }
+
+        jsn = {"name": name, "items": items}
 
         j = json.dumps(jsn)
         arq.write(j)
         pass
 
-    
     pass
