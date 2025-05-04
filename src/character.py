@@ -33,10 +33,10 @@ class Character:
 
     atributes: Atributes
     ac = 0
-    speed = 0
+    speed = ''
 
     def __init__(
-        self, str: int, des: int, con: int, int: int, cha: int, ac: int, speed: int
+        self, str: int, des: int, con: int, int: int, cha: int, ac: int, speed: str
     ):
         self.atributes = Atributes(str, des, con, int, cha)
         self.ac = ac
