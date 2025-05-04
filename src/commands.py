@@ -1,8 +1,8 @@
 class Commands:
 
-    commands : dict[str, function] = {}
+    commands: dict[str, function] = {}
 
-    def add_func(self, func : function, name: str):
+    def add_func(self, func: function, name: str):
         self.commands[name] = func
         pass
 

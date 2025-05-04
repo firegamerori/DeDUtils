@@ -32,7 +32,7 @@ class Item:
 class Table:
 
     name = ""
-    item_list : list[Item] = []
+    item_list: list[Item] = []
     prob_total = 0
 
     def __init__(self, name):
@@ -63,7 +63,7 @@ class Table:
         actual = 1
 
         for item in self.item_list:
-            item : Item = item
+            item: Item = item
             if r >= actual and r <= item.prob + actual:
                 return item
             actual += item.prob

@@ -1,5 +1,6 @@
 import typing
 
+
 class Atributes:
 
     atrs = {"str": 0, "des": 0, "con": 0, "int": 0, "cha": 0}
@@ -20,8 +21,9 @@ class Atributes:
             return
 
         self.atrs[name[0:3]] = value
-    
+
     def to_json(self):
+        return self.atrs
         pass
 
     pass
@@ -33,19 +35,17 @@ class Character:
     ac = 0
     speed = 0
 
-    def __init__(self, str: int, des: int, con: int, int: int, cha: int, ac: int, speed: int):
+    def __init__(
+        self, str: int, des: int, con: int, int: int, cha: int, ac: int, speed: int
+    ):
         self.atributes = Atributes(str, des, con, int, cha)
         self.ac = ac
         self.speed = speed
         pass
-    
+
     def to_json(self) -> dict[str, typing.Any]:
-        js = {
-            "atributes": self.atributes.to_json(),
-            "ac": self.ac,
-            "speed": self.speed
-        }
-        
+        js = {"atributes": self.atributes.to_json(), "ac": self.ac, "speed": self.speed}
+
         return js
 
     pass
